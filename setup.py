@@ -6,7 +6,7 @@ import re
 from os.path import join, dirname
 from setuptools import setup, find_packages
 
-requires = ['Jinja2>=2.8', 'Markdown>=2.0.1','pygments','docutils','smartypants','pyYAML']
+requires = ['Jinja2>=2.8', 'Markdown>=2.0.1','pypandoc','pygments','docutils','smartypants','pyYAML']
 kw = {}
 
 if sys.version_info[0] >= 3:
