@@ -13,6 +13,25 @@ from jinja2 import FileSystemLoader, meta
 
 from acrylamid.templates import AbstractEnvironment, AbstractTemplate
 
+import operator
+import markdown
+
+
+def series(pages_list, series, sort_attr='title'):
+    """finds and sorts all pages that match the provided series"""
+    series_pages_list = []
+    # find pages with a series that matches the provided series
+    for page in pages_list:
+        if hasattr(page, 'series'):
+            if page.series == series:
+                series_pages_list.append(page)
+    # sort by step number
+    series_pages_list.sort(key=operator.attrgetter(sort_attr))
+    return series_pages_list
+
+def markdownify(md):
+    """parses content for markdown"""
+    return markdown.markdown(md).replace('\n', ' ').replace('\r', '')
 
 class ExtendedFileSystemLoader(FileSystemLoader):
     """A custom :class:`jinja2.FileSystemLoader` to work with Acrylamid's
@@ -82,10 +101,16 @@ class ExtendedFileSystemLoader(FileSystemLoader):
 
 
 class Environment(AbstractEnvironment):
-
     def init(self, layoutdir, cachedir):
         self.jinja2 = J2Environemnt(loader=ExtendedFileSystemLoader(layoutdir),
-                                    bytecode_cache=FileSystemBytecodeCache(cachedir))
+                                    bytecode_cache=FileSystemBytecodeCache(cachedir),
+                                    extensions=['jinja2.ext.do'])
+
+        # extensions=['jinja2.ext.do'] - add this to self.jinja2 = to enable
+        # jinja2 extensions
+
+        self.jinja2.filters['series'] = series
+        self.jinja2.filters['markdownify'] = markdownify
 
         # jinja2 is stupid and can't import any module during runtime
         import time, datetime, urllib
@@ -112,7 +137,6 @@ class Environment(AbstractEnvironment):
 
 
 class Template(AbstractTemplate):
-
     def __init__(self, template):
         self.template = template
 
