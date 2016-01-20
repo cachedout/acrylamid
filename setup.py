@@ -23,7 +23,7 @@ if sys.platform == 'win32':
     requires.append('colorama')
 
 setup(
-    name='acrylamid-jhfork',
+    name='acrylamid',
     version='0.7.10a',
     author='Martin Zimmermann',
     author_email='info@posativ.org',
