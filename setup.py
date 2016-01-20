@@ -6,7 +6,7 @@ import re
 from os.path import join, dirname
 from setuptools import setup, find_packages
 
-requires = ['Jinja2==2.6', 'Markdown>=2.0.1']
+requires = ['Jinja2>=2.8', 'Markdown>=2.0.1']
 kw = {}
 
 if sys.version_info[0] >= 3:
@@ -23,8 +23,8 @@ if sys.platform == 'win32':
     requires.append('colorama')
 
 setup(
-    name='acrylamid',
-    version='0.7.10',
+    name='acrylamid-jhfork',
+    version='0.7.10a',
     author='Martin Zimmermann',
     author_email='info@posativ.org',
     packages=find_packages(),
