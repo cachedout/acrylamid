@@ -1,3 +1,20 @@
+A Few Notes on this Fork
+========================
+
+This fork isn't intended for general use, I am not a developer so you'll be much better served by using the main project. I created this fork so I could easily install Acrylamid with my custom filters and dependencies.
+
+Some of my changes:
+
+- Based on acrylamid 0.7.10. I changed the version number to 0.7.10a in setup.py so I could tell it from the main project.
+- Requires [Pandoc](http://pandoc.org/), the Markdown and RST filters were updated to use pandoc with the specific options that I like. Pandoc is straight up awesome for content developers so I use it anywhere I can.
+- Uses Jinja 2.8 + a custom Jinja filter I added to process steps in a series of articles (see the get started example below).
+- Has some hacky filters to insert <div>'s and bootstrap tabs where necessary.
+
+I think that is about it, I have tried almost every static site generator out there and I think Acrylamid is the best. A few of the sites I'm generating:
+
+- https://docs.saltstack.com/getstarted (source Markdown files are at https://github.com/saltstack/salt-get-started)
+- https://repo.saltstack.com
+
 Welcome to Acrylamid
 ====================
 
