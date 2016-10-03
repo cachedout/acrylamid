@@ -13,9 +13,10 @@ class MdPandoc(Filter):
     match = ['md', 'mkdown', 'markdown', 'Markdown']
     version = 1
 
-    conflicts = ['rst', 'plain']
+    conflicts = ['rst', 'plain', 'md', 'md-tabs']
     priority = 70.0
 
     def transform(self, text, entry, *filters):
 
-        return pypandoc.convert(text, 'html', format='markdown+pipe_tables+backtick_code_blocks', extra_args=['--smart'])
+        return pypandoc.convert(text, 'html', format='markdown+pipe_tables', extra_args=['--highlight-style=zenburn', '--smart'])
+
