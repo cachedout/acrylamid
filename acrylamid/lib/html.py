@@ -24,10 +24,10 @@ from cgi import escape
 from acrylamid.compat import PY2K, unichr
 
 if PY2K:
-    from HTMLParser import HTMLParser as DefaultParser, HTMLParseError
+    from HTMLParser import HTMLParser as DefaultParser
     from htmlentitydefs import name2codepoint
 else:
-    from html.parser import HTMLParser as DefaultParser, HTMLParseError
+    from html.parser import HTMLParser as DefaultParser
     from html.entities import name2codepoint
 
 
@@ -53,6 +53,23 @@ if sys.version_info < (3, 0):
 else:
     class WTFMixin(DefaultParser):
         pass
+
+class HTMLParseError(Exception):
+    """Exception raised for all parse errors."""
+
+    def __init__(self, msg, position=(None, None)):
+        assert msg
+        self.msg = msg
+        self.lineno = position[0]
+        self.offset = position[1]
+
+    def __str__(self):
+        result = self.msg
+        if self.lineno is not None:
+            result = result + ", at line %d" % self.lineno
+        if self.offset is not None:
+            result = result + ", column %d" % (self.offset + 1)
+        return result
 
 
 class HTMLParser(WTFMixin):
